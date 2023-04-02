@@ -1,45 +1,43 @@
 # import the necessary packages
-import numpy as np
-import cv2
-import os
+import numpy as np 
+import cv2 
+import os #lets us extract subdirectory names from image paths
 
 class SimpleDatasetLoader:
-    def __init__(self, preprocessors=None):
-        # store the image preprocessor
-        self.preprocessors = preprocessors
 
-        # if the preprocessors are None, initialize them as an
-        # empty list    
+    #constructor for dataset loader class
+    def __init__(self, preprocessors=None):
+        self.preprocessors = preprocessors
+   
         if self.preprocessors is None:
             self.preprocessors = []
 
+    #function to load the images, call preprocess function on them, and add them to the data and label arrays
     def load(self, imagePaths, verbose=-1):
-        #initialize the list of features and labels
+
+        #initialize the list of features and label
         data = []
         labels = []
-        # loop over the input images
+
+        # loop over the input images, loading them/extracting label based on path /dataset_name/class/image.jpg
         for (i, imagePath) in enumerate(imagePaths):
-            # load the image and extract the class label assuming
-            # that our path has the following format:
-            # /path/to/dataset/{class}/{image}.jpg
             image = cv2.imread(imagePath)
             label = imagePath.split(os.path.sep)[-2]
 
-            # check to see if our preprocessors are not None
+            # loop over the preprocessors, resize each image
             if self.preprocessors is not None:
-                # loop over the preprocessors and apply each to
-                # the image
                 for p in self.preprocessors:
                     image = p.preprocess(image)
-            # treat our processed image as a "feature vector"
-            # by updating the data list followed by the labels
+
+            #add the resized image to the image list, add its label to the label list
             data.append(image)
             labels.append(label)
 
-            # show an update every `verbose` images
+            # show an update on the console every `verbose` images
             if verbose > 0 and i > 0 and (i + 1) % verbose == 0:
                 print("[INFO] processed {}/{}".format(i + 1,
                     len(imagePaths)))
+                
         # return a tuple of the data and labels
         return (np.array(data), np.array(labels))
 
