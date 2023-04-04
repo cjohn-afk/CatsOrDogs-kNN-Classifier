@@ -7,6 +7,9 @@ from KNNProject.imageclassifier.preprocessing.simplepreprocessor import SimplePr
 from KNNProject.imageclassifier.datasets.simpledatasetloader import SimpleDatasetLoader
 from KNNProject import config
 from imutils import paths
+from pathlib import Path
+import pickle
+
 # import argparse
 #
 # # construct the argument parse when running the program
@@ -28,23 +31,36 @@ from imutils import paths
 
 # grab the list of images that we'll be describing, from the dataset argument provided
 print("[INFO] loading images...")
-imagePaths = list(paths.list_images(config.dataset_path))
 
+preprocessed_data_file = Path(config.preprocessed_data_file)
+model_file = Path(config.model_file)
 
-# initialize the image preprocessor and dataSetLoader, images will be resized to 32 x 32 pixels
-sp = SimplePreprocessor(32, 32)
-sdl = SimpleDatasetLoader(preprocessors=[sp])
+if not preprocessed_data_file.exists():
+	imagePaths = list(paths.list_images(config.dataset_path))
 
-# load the dataset from the disk
-(data, labels) = sdl.load(imagePaths, verbose=500)
+	# initialize the image preprocessor and dataSetLoader, images will be resized to 32 x 32 pixels
+	sp = SimplePreprocessor(32, 32)
+	sdl = SimpleDatasetLoader(preprocessors=[sp])
 
-# flatten each 3d array element (image) to a single vector (pixel intensities, in this case)
-#getting data will probably happen here
-data = data.reshape((data.shape[0], 3072))
+	# load the dataset from the disk
+	(data, labels) = sdl.load(imagePaths, verbose=500)
 
-# show some information on memory consumption of the images
-print("[INFO] features matrix: {:.1f}MB".format(
-	data.nbytes / (1024 * 1024.0)))
+	# flatten each 3d array element (image) to a single vector (pixel intensities, in this case)
+	#getting data will probably happen here
+	data = data.reshape((data.shape[0], 3072))
+
+	# show some information on memory consumption of the images
+	print("[INFO] features matrix: {:.1f}MB".format(
+		data.nbytes / (1024 * 1024.0)))
+
+	labeled_data = [data, labels]
+	pickle.dump(labeled_data, open(config.preprocessed_data_file, 'wb'))
+else:
+	labeled_data = pickle.load(open(config.preprocessed_data_file, 'rb'))
+
+data = labeled_data[0]
+labels = labeled_data[1]
+
 
 # convert the labels ("dog, cat") to integers, one unique integer per class
 le = LabelEncoder()
@@ -56,15 +72,22 @@ labels = le.fit_transform(labels)
 (trainX, testX, trainY, testY) = train_test_split(data, labels,
 	test_size=0.25, random_state=42)
 
+
 # begin evaluating:
 print("[INFO] evaluating k-NN classifier...")
- 
-# create KNN classifier, "neighbors" is the parameter provided at runtime
-model = KNeighborsClassifier(n_neighbors=config.neighbors,
-	n_jobs=config.jobs)
+if not model_file.exists():
+	# create KNN classifier, "neighbors" is the parameter provided at runtime
+	model = KNeighborsClassifier(n_neighbors=config.neighbors,
+		n_jobs=config.jobs)
 
-#train the model (trainX refers to the vector data, trainY refers to the labels)
-model.fit(trainX, trainY)
+	#train the model (trainX refers to the vector data, trainY refers to the labels)
+	model.fit(trainX, trainY)
+
+	pickle.dump(model, open(config.model_file, 'wb'))
+
+else:
+	model = pickle.load(open(config.model_file, 'rb'))
+
 
 #use predict() on the test data (testX), print the classification report
-cReport = classification_report(testY, model.predict(testX),	target_names=le.classes_)
+cReport = classification_report(testY, model.predict(testX),	target_names=le.classes_, output_dict=True)
