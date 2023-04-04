@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<table>
+<tr>
+    <th></th>
+    <th>Precision</th>
+    <th>Recall</th>
+    <th>f1-score</th>
+    <th>Support</th>
+
+</tr>
+
+<tr>
+    <th>cat</th>
+    <td>{{ report["cat"]["precision"] }}</td>
+    <td>{{ report["cat"]["recall"] }}</td>
+    <td>{{ report["cat"]["f1-score"] }}</td>
+    <td>{{ report["cat"]["support"] }}</td>
+</tr>
+
+<tr>
+    <th>dog</th>
+    <td>{{ report["dog"]["precision"] }}</td>
+    <td>{{ report["dog"]["recall"] }}</td>
+    <td>{{ report["dog"]["f1-score"] }}</td>
+    <td>{{ report["dog"]["support"] }}</td>
+</tr>
+
+<tr>
+    <th>accuracy</th>
+    <td>{{ report["accuracy"] }}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+
+<tr>
+    <th>macro avg</th>
+    <td>{{ report["macro avg"]["precision"] }}</td>
+    <td>{{ report["macro avg"]["recall"] }}</td>
+    <td>{{ report["macro avg"]["f1-score"] }}</td>
+    <td>{{ report["macro avg"]["support"] }}</td>
+</tr>
+
+<tr>
+    <th>weighted avg</th>
+    <td>{{ report["weighted avg"]["precision"] }}</td>
+    <td>{{ report["weighted avg"]["recall"] }}</td>
+    <td>{{ report["weighted avg"]["f1-score"] }}</td>
+    <td>{{ report["weighted avg"]["support"] }}</td>
+</tr>
+</table>
+{% endblock %}
