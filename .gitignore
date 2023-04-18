@@ -1,4 +1,5 @@
 venv/
 *.pyc
 KNNProject/dataset/
+*.jpg
 __pycache__/
