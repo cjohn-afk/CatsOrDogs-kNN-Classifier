@@ -2,7 +2,22 @@
 {% block content %}
 {% include 'navbar.html' %}
 
+
+<div class="image-submit">
+    <h1>Submit An Image to Test!</h1>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <input type="submit">
+    </form>
+</div><br>
+
+<div class="stats-table">
 <table>
+<tr>
+    <th colspan="5">
+        Current Stats!
+    </th>
+</tr>
 <tr>
     <th></th>
     <th>Precision</th>
@@ -52,4 +67,7 @@
     <td>{{ report["weighted avg"]["support"] }}</td>
 </tr>
 </table>
+</div>
+
+
 {% endblock %}
