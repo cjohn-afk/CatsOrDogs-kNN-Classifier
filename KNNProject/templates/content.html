@@ -1,80 +1,94 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'navbar.html' %}
 
-<div class="content">
-    <div class="image-submit">
-        <h2>Give It A Try!</h2>
-        <form method="POST" action="/upload" enctype="multipart/form-data">
-            <label for="input-file"></label>
-                <input type="file" name="image">
-            <label for="submit"></label>
-                <input type="submit">
-        </form>
+<div class="left-container">
+
+</div>
+<div class="center-container">
+    <div class="header">
+        <h1>Cat or Dog? A KNN Classifier</h1>
     </div>
-    <br>
-    <div class="stats-table">
-        <table>
-            <tr>
-                <th colspan="5">
-                    Model Stats
-                </th>
-            </tr>
-            <tr>
-                <th></th>
-                <th>Precision</th>
-                <th>Recall</th>
-                <th>f1-score</th>
-                <th>Support</th>
 
-            </tr>
+    <div class="content">
+        <div class="image-submit">
+            <h2>Give It A Try!</h2>
+            <form method="POST" action="/upload" enctype="multipart/form-data">
+                <label for="input-file"></label>
+                    <input type="file" name="image">
+                <label for="submit"></label>
+                    <input type="submit">
+            </form>
+        </div>
+        <br>
+        <div class="stats-table">
+            <table>
+                <tr>
+                    <th colspan="5">
+                        Model Stats
+                    </th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>f1-score</th>
+                    <th>Support</th>
 
-            <tr>
-                <th>cat</th>
-                <td>{{ report["cat"]["precision"] }}</td>
-                <td>{{ report["cat"]["recall"] }}</td>
-                <td>{{ report["cat"]["f1-score"] }}</td>
-                <td>{{ report["cat"]["support"] }}</td>
-            </tr>
+                </tr>
 
-            <tr>
-                <th>dog</th>
-                <td>{{ report["dog"precision"] }}</td>
-                <td>{{ report["dog"]["recall"] }}</td>
-                <td>{{ report["dog"]["f1-score"] }}</td>
-                <td>{{ report["dog"]["support"] }}</td>
-            </tr>
+                <tr>
+                    <th>cat</th>
+                    <td>{{ report["cat"]["precision"] }}</td>
+                    <td>{{ report["cat"]["recall"] }}</td>
+                    <td>{{ report["cat"]["f1-score"] }}</td>
+                    <td>{{ report["cat"]["support"] }}</td>
+                </tr>
 
-            <tr>
-                <th>accuracy</th>
-                <td>{{ report["accuracy"] }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+                <tr>
+                    <th>dog</th>
+                    <td>{{ report["dog"]["precision"] }}</td>
+                    <td>{{ report["dog"]["recall"] }}</td>
+                    <td>{{ report["dog"]["f1-score"] }}</td>
+                    <td>{{ report["dog"]["support"] }}</td>
+                </tr>
 
-            <tr>
-                <th>macro avg</th>
-                <td>{{ report["macro avg"]["precision"] }}</td>
-                <td>{{ report["macro avg"]["recall"] }}</td>
-                <td>{{ report["macro avg"]["f1-score"] }}</td>
-                <td>{{ report["macro avg"]["support"] }}</td>
-            </tr>
+                <tr>
+                    <th>accuracy</th>
+                    <td>{{ report["accuracy"] }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
-            <tr>
-                <th>weighted avg</th>
-                <td>{{ report["weighted avg"]["precision"] }}</td>
-                <td>{{ report["weighted avg"]["recall"] }}</td>
-                <td>{{ report["weighted avg"]["f1-score"] }}</td>
-                <td>{{ report["weighted avg"]["support"] }}</td>
-            </tr>
-        </table>
+                <tr>
+                    <th>macro avg</th>
+                    <td>{{ report["macro avg"]["precision"] }}</td>
+                    <td>{{ report["macro avg"]["recall"] }}</td>
+                    <td>{{ report["macro avg"]["f1-score"] }}</td>
+                    <td>{{ report["macro avg"]["support"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>weighted avg</th>
+                    <td>{{ report["weighted avg"]["precision"] }}</td>
+                    <td>{{ report["weighted avg"]["recall"] }}</td>
+                    <td>{{ report["weighted avg"]["f1-score"] }}</td>
+                    <td>{{ report["weighted avg"]["support"] }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="page-images">
+            <img src = '../static/cat.170.jpg' alt="generic cat" width="250" height="300">
+            <p class="symbol">?</p>
+            <img src = '../static/dog.57.jpg' alt="generic dog" width="250" height="300">
+        </div>
+        <div class="footer">
+            <p class="footer-text">Winter 2023, COSC 411, Group 1</p>
+        </div>
     </div>
-    <div class="page-images">
-        <img src = '../static/cat.170.jpg' alt="generic cat" width="250" height="300">
-        <p class="symbol">?</p>
-        <img src = '../static/dog.57.jpg' alt="generic dog" width="250" height="300">
-    </div>
+</div>
+<div class="right-container">
+    
 </div>
 
 
