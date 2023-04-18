@@ -77,10 +77,14 @@
                 </tr>
             </table>
         </div>
-        <div class="page-images">
+        <div class="page-images" {% if classname %} style="flex-direction: column;" >
+                <p class="result">Our model thinks this is a {{ classname }}.</p>
+                <img src = '{{ pictureurl }}' alt="generic cat" width="auto" height="300">
+            {% else %} >
             <img src = '../static/cat.170.jpg' alt="generic cat" width="250" height="300">
             <p class="symbol">?</p>
             <img src = '../static/dog.57.jpg' alt="generic dog" width="250" height="300">
+            {% endif %}
         </div>
         <div class="footer">
             <p class="footer-text">Winter 2023, COSC 411, Group 1</p>

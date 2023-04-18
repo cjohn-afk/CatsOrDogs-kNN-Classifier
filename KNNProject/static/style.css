@@ -73,6 +73,17 @@ img {
     display: flex;
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    height:300px;
+}
+
+.page-images img {
+    height: 100%;
+}
+
+.page-images .result {
+    text-align: center;
+    width: 100%;
+    font-size:1em;
 }
 
 .symbol {
