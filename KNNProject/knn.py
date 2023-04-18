@@ -35,11 +35,13 @@ print("[INFO] loading images...")
 preprocessed_data_file = Path(config.preprocessed_data_file)
 model_file = Path(config.model_file)
 
+sp = SimplePreprocessor(32, 32)
+
 if not preprocessed_data_file.exists():
 	imagePaths = list(paths.list_images(config.dataset_path))
 
 	# initialize the image preprocessor and dataSetLoader, images will be resized to 32 x 32 pixels
-	sp = SimplePreprocessor(32, 32)
+
 	sdl = SimpleDatasetLoader(preprocessors=[sp])
 
 	# load the dataset from the disk
