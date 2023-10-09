@@ -1,1 +1,2 @@
-# AI-Classifier-411
+# Cat vs. Dog Classifier with k-NN
+This project is an intuitive and interactive tool built around the k-Nearest Neighbors (k-NN) algorithm for classifying images as either cats or dogs. With a straightforward user interface, users can effortlessly submit cat or dog images. Behind the scenes, the k-NN classifier analyzes the input image and provides a likelihood score, indicating whether the picture is more likely to be a cat or a dog. Whether you're a machine learning enthusiast or just curious about the capabilities of k-NN, this project offers a user-friendly way to explore image classification in a fun and engaging manner.
