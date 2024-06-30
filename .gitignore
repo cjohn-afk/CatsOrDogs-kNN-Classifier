@@ -1,5 +1,3 @@
-venv/
-*.pyc
 KNNProject/dataset/
 KNNProject/uploads/
 __pycache__/

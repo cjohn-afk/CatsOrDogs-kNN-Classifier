@@ -1,0 +1,9 @@
+name: CatsOrDogs-kNN-Classifier
+channels:
+  - defaults
+dependencies:
+  - flask
+  - opencv
+  - python=3.11
+  - scikit-learn
+  - conda-forge::imutils
