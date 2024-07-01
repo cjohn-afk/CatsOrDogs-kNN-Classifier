@@ -27,10 +27,6 @@ import pickle
 # ap.add_argument("-j", "--jobs", type=int, default=-1,
 # 	help="# of jobs for k-NN distance (-1 uses all available cores)")
 # args = vars(ap.parse_args())
-#
-
-# grab the list of images that we'll be describing, from the dataset argument provided
-print("[INFO] loading images...")
 
 preprocessed_data_file = Path(config.preprocessed_data_file)
 model_file = Path(config.model_file)
@@ -38,6 +34,9 @@ model_file = Path(config.model_file)
 sp = SimplePreprocessor(32, 32)
 
 if not preprocessed_data_file.exists():
+	# grab the list of images that we'll be describing, from the dataset argument provided
+	print("[INFO] loading images...")
+
 	imagePaths = list(paths.list_images(config.dataset_path))
 
 	# initialize the image preprocessor and dataSetLoader, images will be resized to 32 x 32 pixels
